@@ -94,9 +94,57 @@
             alert('Ocurrió un error durante el pago. Por favor, inténtalo nuevamente.');
         }
     }).render('#paypal-button');
+
+    document.getElementById("shipping-edit-button").addEventListener("click", async () => {
+        if (memberAuthenticatedSuccessfully) {
+            const { selectionChanged, selectedAddress } = await profile.showShippingAddressSelector();
+            if (selectionChanged) {
+                console.log("New address:", selectedAddress);
+                shippingAddress = selectedAddress;
+                setShippingSummary(shippingAddress);
+                paymentComponent.setShippingAddress(shippingAddress);
+            }
+        } else {
+            setActiveSection(shippingSection);
+        }
+    });
+
+    document.getElementById("payment-edit-button").addEventListener("click", () => setActiveSection(paymentSection));
+
+    checkoutButton.addEventListener("click", async () => {
+        checkoutButton.setAttribute("disabled", "");
+        try {
+            paymentToken = await paymentComponent.getPaymentToken();
+            console.log("Payment token:", paymentToken);
+            const headers = new Headers();
+            headers.append("Content-Type", "application/json");
+            const isShippingRequired = form.elements["shipping-required"].checked;
+            const body = JSON.stringify({
+                ...(isShippingRequired && { shippingAddress }),
+                paymentToken,
+            });
+            const response = await fetch("transaction", {
+                method: "POST",
+                headers,
+                body,
+            });
+            const { result, error } = await response.json();
+            if (error) {
+                console.error(error);
+            } else {
+                if (result.id) {
+                    const message = Order ${result.id}: ${result.status};
+                    console.log(message);
+                    alert(message);
+                } else {
+                    console.error(result);
+                }
+            }
+        } finally {
+            checkoutButton.removeAttribute("disabled");
+        }
+    });
 </script>
 
-</body>
-</html>
 </body>
 </html>
