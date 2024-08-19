@@ -99,7 +99,8 @@
         if (memberAuthenticatedSuccessfully) {
             const { selectionChanged, selectedAddress } = await profile.showShippingAddressSelector();
             if (selectionChanged) {
-                console.log("New address:", selectedAddress);
+                console.
+                    log("New address:", selectedAddress);
                 shippingAddress = selectedAddress;
                 setShippingSummary(shippingAddress);
                 paymentComponent.setShippingAddress(shippingAddress);
