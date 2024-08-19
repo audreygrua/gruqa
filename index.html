@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio de Grúa - [Nombre del Negocio]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .paypal-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Servicio de Grúa [Audrey Grua]</h1>
+</header>
+
+<section>
+    <h2>Servicios Ofrecidos</h2>
+    <p>Ofrecemos remolque de vehículos, asistencia en carretera, y mucho más.</p>
+</section>
+
+<section>
+    <h2>Contacta con Nosotros</h2>
+    <form>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        <label for="email">Correo Electrónico:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="telefono">Teléfono:</label><br>
+        <input type="tel" id="telefono" name="telefono" required><br><br>
+        <label for="mensaje">Descripción del Problema:</label><br>
+        <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+
+<div class="paypal-button-container">
+    <h2>Paga Ahora</h2>
+    <div id="paypal-button"></div>
+</div>
+
+<footer>
+    <p>© 2024 [Audrey Grua]. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://www.paypal.com/sdk/js?client-id=ASlfuJBzhOajtPPymKrRs4dsW_wGJUYTRw5XYawu5E9rNBVptVEdijKinc3Dzz47aXyLiy8pvfA7Rp-q"></script>
+<script>
+    paypal.Buttons().render('#paypal-button');
+</script>
+
+</body>
+</html>
