@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicio de Grúa - [Nombre del Negocio]</title>
+    <title>Servicio de Grúa - [Audrey Grua]</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,9 +70,25 @@
     <p>© 2024 [Audrey Grua]. Todos los derechos reservados.</p>
 </footer>
 
-<script src="https://www.paypal.com/sdk/js?client-id=ASlfuJBzhOajtPPymKrRs4dsW_wGJUYTRw5XYawu5E9rNBVptVEdijKinc3Dzz47aXyLiy8pvfA7Rp-q"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ASlfuJBzhOajtPPymKrRs4dsW_wGJUYTRw5XYawu5E9rNBVptVEdijKinc3Dzz47aXyLiy8pvfA7Rp-q&currency=USD"></script>
 <script>
-    paypal.Buttons().render('#paypal-button');
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '200' // Aquí defines el monto del servicio
+                    },
+                    description: "Servicio de Grúa - [Audrey Grua]"
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Pago completado por ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button');
 </script>
 
 </body>
